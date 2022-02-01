@@ -1,0 +1,98 @@
+services:
+  react:
+    image: node:lts-bullseye
+    command: /bin/bash run.sh
+    working_dir: /app
+    volumes:
+      - ./ghi/app:/app
+    ports:
+      - "3000:3000"
+    environment:
+      HOST_OS: ${OS}
+      NODE_ENV: development
+      HOST: "0.0.0.0"
+  database:
+    image: postgres:14.2-bullseye
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./db:/docker-entrypoint-initdb.d
+    environment:
+      - POSTGRES_MULTIPLE_DATABASES=shoes,hats,wardrobe
+      - POSTGRES_PASSWORD=test-databases
+    ports:
+      - 15432:5432
+  wardrobe-api:
+    build:
+      context: ./wardrobe/api
+      dockerfile: ./Dockerfile.dev
+    ports:
+      - "8100:8000"
+    volumes:
+      - ./wardrobe/api:/app
+    depends_on:
+      - database
+    environment:
+      DATABASE_URL: postgres://wardrobe:password@database:5432/wardrobe
+      WAIT_HOSTS: database:5432
+      WAIT_TIMEOUT: 240
+  shoes-api:
+    build:
+      context: ./shoes/api
+      dockerfile: ./Dockerfile.dev
+    ports:
+      - "8080:8000"
+    volumes:
+      - ./shoes/api:/app
+    depends_on:
+      - database
+    environment:
+      DATABASE_URL: postgres://shoes:password@database:5432/shoes
+      WAIT_HOSTS: database:5432
+      WAIT_TIMEOUT: 240
+  shoes-poller:
+    build:
+      context: ./shoes/poll
+      dockerfile: ./Dockerfile.dev
+    volumes:
+      - ./shoes/poll:/app
+      - ./shoes/api/shoes_project:/app/shoes_project
+      - ./shoes/api/shoes_rest:/app/shoes_rest
+    depends_on:
+      - database
+      - shoes-api
+    environment:
+      DATABASE_URL: postgres://shoes:password@database:5432/shoes
+      WAIT_HOSTS: database:5432,shoes-api:8000
+      WAIT_TIMEOUT: 240
+  hats-api:
+    build:
+      context: ./hats/api
+      dockerfile: ./Dockerfile.dev
+    ports:
+      - "8090:8000"
+    volumes:
+      - ./hats/api:/app
+    depends_on:
+      - database
+    environment:
+      DATABASE_URL: postgres://hats:password@database:5432/hats
+      WAIT_HOSTS: database:5432
+      WAIT_TIMEOUT: 240
+  hats-poller:
+    build:
+      context: ./hats/poll
+      dockerfile: ./Dockerfile.dev
+    volumes:
+      - ./hats/poll:/app
+      - ./hats/api/hats_project:/app/hats_project
+      - ./hats/api/hats_rest:/app/hats_rest
+    depends_on:
+      - database
+      - hats-api
+    environment:
+      DATABASE_URL: postgres://hats:password@database:5432/hats
+      WAIT_HOSTS: database:5432,hats-api:8000
+      WAIT_TIMEOUT: 240
+volumes:
+  pgdata:
+    external: true
