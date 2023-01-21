@@ -94,5 +94,5 @@ services:
       WAIT_HOSTS: database:5432,hats-api:8000
       WAIT_TIMEOUT: 240
 volumes:
-  pgdata:
+  two-shot-pgdata:
     external: true
