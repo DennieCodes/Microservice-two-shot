@@ -52,6 +52,11 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+ALLOWED_HOSTS = [
+    "localhost:3000",
+    "wardrobe-api:8000",
+]
+
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
 ]
