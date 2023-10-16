@@ -1,3 +1,10 @@
-from django.shortcuts import render
+from .models import Shoe
+from django.http import JsonResponse
+# from django.shortcuts import render
 
-# Create your views here.
+def api_list_shoes(request):
+  shoes = Shoe.objects.all()
+
+  return JsonResponse(
+    { "shoes": shoes},
+  )
