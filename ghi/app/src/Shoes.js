@@ -25,7 +25,11 @@ function Shoes() {
 			<table className="table table-striped">
 				<thead>
 					<tr>
-						<th>Name</th>
+						<th>Brand</th>
+						<th>Model</th>
+						<th>Color</th>
+						<th>Bin</th>
+						<th>Image</th>
 					</tr>
 				</thead>
 
@@ -34,7 +38,11 @@ function Shoes() {
 						shoes.map((shoe) => {
 							return (
 								<tr>
-									<td>{shoe.name}</td>
+									<td>{shoe.manufacturer_name}</td>
+									<td>{shoe.model_name}</td>
+									<td>{shoe.color}</td>
+									<td>{shoe.assigned_bin.closet_name}</td>
+									<td>{shoe.picture_url}</td>
 								</tr>
 							);
 						})}
