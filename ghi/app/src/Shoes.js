@@ -1,9 +1,24 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import ShoesForm from './ShoesForm';
 
 function Shoes() {
 	const [shoes, setShoes] = useState('');
 	const [shoeForm, setShoeForm] = useState(false);
+
+	const handleDeleteShoe = async (e) => {
+		const deleteShoeUrl = `http://localhost:8080/api/shoes/${e.target.value}`;
+
+		const fetchConfig = {
+			method: 'delete',
+		};
+
+		const response = await fetch(deleteShoeUrl, fetchConfig);
+
+		if (response.ok) {
+			console.log('Shoe was deleted');
+		}
+	};
 
 	const useToggle = () => {
 		setShoeForm(!shoeForm);
@@ -44,12 +59,14 @@ function Shoes() {
 							<th>Color</th>
 							<th>Bin</th>
 							<th>Image</th>
+							<th></th>
 						</tr>
 					</thead>
 
 					<tbody>
 						{shoes &&
 							shoes.map((shoe) => {
+								// console.log(shoe.id);
 								return (
 									<tr>
 										<td>{shoe.manufacturer_name}</td>
@@ -57,6 +74,15 @@ function Shoes() {
 										<td>{shoe.color}</td>
 										<td>{shoe.assigned_bin.closet_name}</td>
 										<td>{shoe.picture_url}</td>
+										<td>
+											<button
+												value={shoe.id}
+												className="btn btn-danger"
+												onClick={handleDeleteShoe}
+											>
+												Delete
+											</button>
+										</td>
 									</tr>
 								);
 							})}
