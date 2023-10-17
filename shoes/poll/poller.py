@@ -11,6 +11,17 @@ django.setup()
 
 # Import models from hats_rest, here.
 # from shoes_rest.models import Something
+from shoes_rest.models import BinVO
+
+
+def get_bins():
+    response = requests.get("http://wardrobe-api:8000/api/bins/")
+    content = json.loads(response.content)
+    for b in content['bins']:
+        BinVO.objects.update_or_create(
+            import_href=b['href'],
+            defaults = {"closet_name": b['closet_name']},)
+
 
 def poll():
     while True:
