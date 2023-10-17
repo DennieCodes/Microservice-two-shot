@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 function ShoesForm() {
+	const [bins, setBins] = useState('');
 	const [brand, setBrand] = useState('');
 	const [model, setModel] = useState('');
 	const [color, setColor] = useState('');
@@ -22,12 +23,16 @@ function ShoesForm() {
 			if (response.ok) {
 				const data = await response.json();
 
-				console.log('Data: ', data);
+				setBins(data.bins);
 			}
 		} catch (error) {
 			console.error(error);
 		}
 	};
+
+	useEffect(() => {
+		fetchData();
+	}, []);
 
 	return (
 		<div className="shadow p-4 mt-4">
@@ -97,7 +102,18 @@ function ShoesForm() {
 						name="bin"
 						className="form-select"
 						onChange={handleBinChange}
-					></select>
+					>
+						<option value="">Choose a bin</option>
+						{bins &&
+							bins.map((bin) => {
+								console.log('bin:', bin);
+								return (
+									<option key={bin.id} value={bin.id}>
+										{bin.closet_name}
+									</option>
+								);
+							})}
+					</select>
 				</div>
 			</form>
 		</div>
