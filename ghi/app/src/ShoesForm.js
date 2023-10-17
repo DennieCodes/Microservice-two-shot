@@ -14,6 +14,38 @@ function ShoesForm() {
 	const handleImageChange = (e) => setImage(e.target.value);
 	const handleBinChange = (e) => setBin(e.target.value);
 
+	const handleSubmit = async (event) => {
+		event.preventDefault();
+		const data = {};
+		data.manufacturer_name = brand;
+		data.model_name = model;
+		data.color = color;
+		data.picture_url = image;
+		data.assigned_bin = bin;
+
+		const shoeUrl = 'http://localhost:8080/api/shoes/';
+		const fetchConfig = {
+			method: 'post',
+			body: JSON.stringify(data),
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		};
+
+		const response = await fetch(shoeUrl, fetchConfig);
+
+		if (response.ok) {
+			const newShoe = await response.json();
+			console.log(newShoe);
+
+			setBrand('');
+			setModel('');
+			setColor('');
+			setImage('');
+			setBin('');
+		}
+	};
+
 	const fetchData = async () => {
 		const url = 'http://localhost:8100/api/bins/';
 
@@ -37,7 +69,7 @@ function ShoesForm() {
 	return (
 		<div className="shadow p-4 mt-4">
 			<h3>Add a new shoe</h3>
-			<form id="create-shoe-form">
+			<form id="create-shoe-form" onSubmit={handleSubmit}>
 				<div className="form-floating mb-2">
 					<input
 						onChange={handleBrandChange}
@@ -106,15 +138,15 @@ function ShoesForm() {
 						<option value="">Choose a bin</option>
 						{bins &&
 							bins.map((bin) => {
-								console.log('bin:', bin);
 								return (
-									<option key={bin.id} value={bin.id}>
+									<option key={bin.href} value={bin.href}>
 										{bin.closet_name}
 									</option>
 								);
 							})}
 					</select>
 				</div>
+				<button className="btn btn-primary">Add Shoe</button>
 			</form>
 		</div>
 	);
