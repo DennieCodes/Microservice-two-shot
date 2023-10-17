@@ -2,8 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MainPage from './MainPage';
 import Nav from './Nav';
 import Shoes from './Shoes';
-import Hats from "./Hats"
-
+import Hats from './Hats';
 
 function App() {
 	return (
@@ -13,7 +12,7 @@ function App() {
 				<Routes>
 					<Route path="/" element={<MainPage />} />
 					<Route path="/shoes" element={<Shoes />} />
-          <Route path="/hats" element={<Hats />} />
+					<Route path="/hats" element={<Hats />} />
 				</Routes>
 			</div>
 		</BrowserRouter>
