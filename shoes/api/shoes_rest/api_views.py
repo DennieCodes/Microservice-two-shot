@@ -31,6 +31,10 @@ def api_list_shoes(request, bin_vo_id=None):
   else:
     content = json.loads(request.body)
 
+    # print("Content: ", content)
+    test_bin = BinVO.objects.all().values()
+    print("Bin: ", len(test_bin))
+
     try:
       bin_href = content["assigned_bin"]
       assigned_bin = BinVO.objects.get(import_href=bin_href)
