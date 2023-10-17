@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-function Hats() {
+function HatsList() {
     const [hats, setHats] = useState([]);
 
     const fetchData = async () => {
@@ -53,7 +53,7 @@ function Hats() {
                 {hats.map(hat => {
                     return (
                         <tr key={hat.id}>
-                            <td>{hat.style}</td>
+                            <td>{hat.style_name}</td>
                             <td>{hat.color}</td>
                             <td>{hat.fabric}</td>
                             <td>{hat.location}</td>
@@ -73,4 +73,4 @@ function Hats() {
 
 
 
-export default Hats
+export default HatsList

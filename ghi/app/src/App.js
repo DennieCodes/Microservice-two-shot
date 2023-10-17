@@ -2,7 +2,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MainPage from './MainPage';
 import Nav from './Nav';
 import Shoes from './Shoes';
-import Hats from "./Hats"
+import HatsForm from "./HatsForm"
+import HatsList from './HatsList';
 
 
 function App() {
@@ -13,8 +14,13 @@ function App() {
 				<Routes>
 					<Route path="/" element={<MainPage />} />
 					<Route path="/shoes" element={<Shoes />} />
-          <Route path="/hats" element={<Hats />} />
+          			<Route path="/hats" element={<HatsList />} />
+					<Route path="hats">
+           			 	<Route path="/hats/new" element={<HatsForm />} />
+          			</Route>
+
 				</Routes>
+		
 			</div>
 		</BrowserRouter>
 	);
