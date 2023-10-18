@@ -23,6 +23,8 @@ Team:
 ### React form for adding shoes through the shoes microservice
 ![](images/Shoe-form.png)
 
+**MODEL**
+
 For the Shoes microservice, we had one primary model with the following properties:
 
 **model name**: The name of the shoe model
@@ -34,6 +36,15 @@ For the Shoes microservice, we had one primary model with the following properti
 **picture url**: A link to a picture of the shoe
 
 **assigned bin**: A foreign key which retrieves Bin information from the wardrobe microservice through polling.
+
+**ENDPOINTS**
+
+These are the endpoints that we were calling from our React app for our Shoes microservice
+
+**GET** http://localhost:8080/api/shoes
+**POST** http://localhost:8080/api/shoes/
+**DELETE** http://localhost:8080/api/shoes/{shoe_number}
+**GET** http://localhost:8100/api/bins/
 
 ## Hats microservice
 
@@ -52,8 +63,9 @@ Foreign Key in the models for the locationVO
 
 
 **ENDPOINTS**
-These are the endpoints that we were calling from our React app
-**GET** http://localhost:8090/api/hats/ 
+
+These are the endpoints that we were calling from our React app for our Hats microservice
+**GET** http://localhost:8090/api/hats/
 **POST** http://localhost:8090/api/hats/
 **DELETE** http://localhost:8090/api/hats/3/
 **GET** http://localhost:8100/api/locations/
