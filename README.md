@@ -15,6 +15,9 @@ Team:
 ### Diagram of the project folder structure
 ![](images/Microservice_diagram.png)
 
+### Diagram of the microservice architecture
+![](images/Microservice_db_diagram.png)
+
 ## Shoes microservice
 
 ### React view of shoes from shoes microservice
