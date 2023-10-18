@@ -37,17 +37,23 @@ For the Shoes microservice, we had one primary model with the following properti
 
 ## Hats microservice
 
+### React view for the HatsList function
 ![](images/Hat-list.png)
+
+### React view for the HatForm to create a new hat
 ![](images/Hat-form.png)
 
 Used React Router to route the front end for the Nav Links and also linked the HatsForm to the HatsList.
 
 
-MODELS
+**MODELS**
 This model was setup to store hat style, color, fabric, and an image. Also utilized
 Foreign Key in the models for the locationVO
 
 
-ENDPOINTS
-hats/
-hats/{id}
+**ENDPOINTS**
+These are the endpoints that we were calling from our React app
+**GET** http://localhost:8090/api/hats/ 
+**POST** http://localhost:8090/api/hats/
+**DELETE** http://localhost:8090/api/hats/3/
+**GET** http://localhost:8100/api/locations/
