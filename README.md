@@ -24,10 +24,15 @@ Team:
 ![](images/Shoe-form.png)
 
 For the Shoes microservice, we had one primary model with the following properties:
+
 **model name**: The name of the shoe model
+
 **manufacturer name**: The name of the shoe manufacturer
+
 **color**: The color of the shoe
+
 **picture url**: A link to a picture of the shoe
+
 **assigned bin**: A foreign key which retrieves Bin information from the wardrobe microservice through polling.
 
 ## Hats microservice
