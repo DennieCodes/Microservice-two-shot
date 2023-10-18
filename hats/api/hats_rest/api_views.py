@@ -20,6 +20,7 @@ class HatsListEncoder(ModelEncoder):
         'color',
         'fabric',
         'photo_url',
+        "id"
     ]
     encoders = {
         'location': LocationVODetailEncoder(),
@@ -58,7 +59,7 @@ def api_list_hats(request, location_vo_id=None):
             safe=False
         )
 
-
+@require_http_methods(['DELETE'])
 def api_delete_hat(request, id):
-    count, _ =Hat.objects.filter(id=id).delete()
+    count, _ = Hat.objects.filter(id=id).delete()
     return JsonResponse({'deleted': count > 0})

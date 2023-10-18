@@ -22,18 +22,19 @@ function HatsList() {
         fetchData();
     }
 
-    function deleteHat(id) {
-        fetch(`http://localhost:8090/api/hats/${id}`, {
-            method: 'DELETE'
-        }).then((result) => {
-            result.json().then((resp) => {
-                console.warn(resp)
-                getHats();
-            })
-        })
-    }
+    const deleteHat = async (e) => {
+		const deleteHatUrl = `http://localhost:8080/api/hats/${e.target.value}`;
 
-    
+		const fetchConfig = {
+			method: 'delete',
+		};
+
+		const response = await fetch(deleteHatUrl, fetchConfig);
+
+		if (response.ok) {
+			fetchData();
+		}
+	};
     return (
         <div className='row'>
         <div className='col-md-12'>
