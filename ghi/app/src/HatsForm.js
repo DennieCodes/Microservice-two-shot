@@ -39,18 +39,13 @@ function HatForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const data = {};
-        data.style = styleName; //<< The issue might just be this
+        data.style_name = styleName; //<< The issue might just be this
         data.fabric = fabric;
         data.color = color;
-        data.picture_url = url;
+        data.photo_url = url;
         data.location = location;
-        console.log("data: ", data);
-        //const retUrl = location;
-        //console.log("location: ",retUrl);
 
-        //const hatsUrl = `http://localhost:8090/api/hats/`;
-        const hatsUrl = `http://localhost:8090${data.location}hats/`;
-        console.log("hats url:",hatsUrl);
+        const hatsUrl = `http://localhost:8090${location}hats/`;
         const fetchConfig = {
             method: "POST",
             body: JSON.stringify(data),
@@ -60,7 +55,7 @@ function HatForm() {
         };
         const response = await fetch(hatsUrl, fetchConfig);
         if (response.ok) {
-            console.log(response);
+
             const newHat = await response.json();
             console.log(newHat);
             setStyleName("");
@@ -70,8 +65,12 @@ function HatForm() {
             setLocation("");
             //window.location.reload();
         }
-    }
-    const fetchData = async () => {
+
+  
+  
+  
+      }
+      const fetchData = async () => {
         const url = `http://localhost:8100/api/locations/`;
         const response = await fetch(url);
         if (response.ok) {
@@ -80,11 +79,9 @@ function HatForm() {
             setLocations(data.locations);
         }
     }
-
-
-    useEffect(() => {
+      useEffect(() => {
         fetchData();
-    }, []);
+    }, []);  
 
 
     return (
@@ -126,7 +123,7 @@ function HatForm() {
                     </div>
                   </div>
                   <div className="form-floating mb-3">
-                    <select onChange={handleLocationChange} name="location" id="location" required value={location}>
+                    <select onChange={handleLocationChange} name="location" id="location"  value={location}>
                       <option key="default" value="">Choose A Closet</option>
                       {locations.map(location => {
                         return (
@@ -137,7 +134,7 @@ function HatForm() {
                   </div>
 
                   <div className="col">
-                    <button type="submit" className="btn btn-primary">Submit</button>
+                    <button type="submit"  onClick={() => handleSubmit()}  className="btn btn-primary">Submit</button>
                   </div>
               </form>
               </div>

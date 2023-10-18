@@ -7,23 +7,22 @@ function HatsList() {
     const fetchData = async () => {
         const url = 'http://localhost:8090/api/hats/';
         const response = await fetch(url);
-        console.log(response);
+        
         if (response.ok) {
             const data = await response.json();
             setHats(data.hats);
-            console.log(data.hats);
-        }
+            }
     }
     useEffect(() => {
         getHats();
-    }, [fetchData]);
+    }, []);
 
     function getHats() {
         fetchData();
     }
 
     const deleteHat = async (e) => {
-		const deleteHatUrl = `http://localhost:8080/api/hats/${e.target.value}`;
+		const deleteHatUrl = `http://localhost:8090/api/hats/${e.target.value}`;
 
 		const fetchConfig = {
 			method: 'delete',
@@ -35,6 +34,8 @@ function HatsList() {
 			fetchData();
 		}
 	};
+
+
     return (
         <div className='row'>
         <div className='col-md-12'>
@@ -59,7 +60,7 @@ function HatsList() {
                             <td>{hat.fabric}</td>
                             <td>{hat.location}</td>
                             <td><img src={hat.picture_url} alt="" height="100" /></td>
-                            <td><button onClick={() => deleteHat(hat.id)} type="button" className="btn btn-danger">Delete</button></td>
+                            <td><button onClick={deleteHat} type="button" value={hat.id} className="btn btn-danger">Delete</button></td>
                         </tr>
                     );
                 })}
